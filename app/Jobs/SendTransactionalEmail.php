@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Throwable;
 
 class SendTransactionalEmail implements ShouldQueue
 {
@@ -24,15 +25,15 @@ class SendTransactionalEmail implements ShouldQueue
     public function handle(EmailApiManager $emailApiManager): bool
     {
         foreach ($emailApiManager->getDrivers() as $driver) {
-            //try {
-            $emailApiManager->driver($driver)->send($this->email, $this->recipient);
+            try {
+                $emailApiManager->driver($driver)->send($this->email, $this->recipient);
 
-            // log
+                // log
 
-            return true;
-            //} catch (Throwable $exception) {
-            //    // log
-            //}
+                return true;
+            } catch (Throwable $exception) {
+                // log
+            }
         }
 
         throw new NoDriversLeftException();
