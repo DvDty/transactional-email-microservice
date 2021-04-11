@@ -2,6 +2,7 @@
 
 namespace App\Services\Email;
 
+use App\Services\Email\Sendgrid\Sendgrid;
 use Illuminate\Support\Manager;
 
 /**
@@ -18,5 +19,10 @@ class EmailApiManager extends Manager
     public function getDrivers(): array
     {
         return array_keys($this->config->get('services.email'));
+    }
+
+    public function createSendgridDriver()
+    {
+        return app()->make(Sendgrid::class);
     }
 }
