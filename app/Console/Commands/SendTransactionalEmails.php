@@ -65,10 +65,11 @@ class SendTransactionalEmails extends Command
 
         $recipients = $recipients->unique();
 
-        $confirmationPrompt = trans('transactional_email.cli.confirmation_prompt', [
-            'subject'        => $email->getSubject(),
-            'recipientCount' => $recipients->count(),
-        ]);
+        $confirmationPrompt = trans_choice(
+            'transactional_email.cli.confirmation_prompt',
+            $recipients->count(),
+            ['subject' => $email->getSubject(), 'recipientCount' => $recipients->count()],
+        );
 
         if ($this->confirm($confirmationPrompt, true)) {
             $this->withProgressBar($recipients, function (string $recipient) use ($email) {
