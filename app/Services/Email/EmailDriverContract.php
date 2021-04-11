@@ -2,7 +2,7 @@
 
 namespace App\Services\Email;
 
-interface EmailApiContract
+interface EmailDriverContract
 {
     public function send(Email $email, string $recipient): int;
 }

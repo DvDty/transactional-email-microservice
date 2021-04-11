@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Email\Sendgrid;
+namespace App\Services\Email\Drivers;
 
 use App\Services\Email\Email;
-use App\Services\Email\EmailApiContract;
+use App\Services\Email\EmailDriverContract;
 use SendGrid as SendgridClient;
 use SendGrid\Mail\Mail as SendgridEmail;
 
-class Sendgrid implements EmailApiContract
+class SendgridDriver implements EmailDriverContract
 {
 
     public SendgridClient $sendGridClient;

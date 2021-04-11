@@ -2,11 +2,11 @@
 
 namespace App\Services\Email;
 
-use App\Services\Email\Sendgrid\Sendgrid;
+use App\Services\Email\Drivers\SendgridDriver;
 use Illuminate\Support\Manager;
 
 /**
- * @method EmailApiContract driver(string $driver = null)
+ * @method EmailDriverContract driver(string $driver = null)
  */
 class EmailApiManager extends Manager
 {
@@ -23,6 +23,6 @@ class EmailApiManager extends Manager
 
     public function createSendgridDriver()
     {
-        return app()->make(Sendgrid::class);
+        return app()->make(SendgridDriver::class);
     }
 }
