@@ -17,6 +17,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SendGrid::class, function ($app) {
             return new SendGrid(config('services.email.sendgrid.api_key'));
         });
+
+        $this->app->bind(\Mailjet\Client::class, function ($app) {
+            return new \Mailjet\Client(
+                config('services.email.mailjet.api_key'),
+                config('services.email.mailjet.api_secret'),
+                true,
+                ['version' => 'v3.1'],
+            );
+        });
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Services\Email;
 
+use App\Services\Email\Drivers\MailjetDriver;
 use App\Services\Email\Drivers\SendgridDriver;
 use Illuminate\Support\Manager;
 
@@ -24,5 +25,10 @@ class EmailApiManager extends Manager
     public function createSendgridDriver()
     {
         return app()->make(SendgridDriver::class);
+    }
+
+    public function createMailjetDriver()
+    {
+        return app()->make(MailjetDriver::class);
     }
 }

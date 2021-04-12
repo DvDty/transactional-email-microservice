@@ -36,7 +36,8 @@ return [
         ],
 
         'mailjet' => [
-
+            'api_key' => env('MJ_APIKEY_PUBLIC'),
+            'api_secret' => env('MJ_APIKEY_PRIVATE'),
         ],
     ],
 
