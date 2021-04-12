@@ -35,7 +35,15 @@ class TransactionalEmailController extends Controller
      *         )
      *      )
      *   ),
-     *   @OA\Response(response=202, description="Accepted")
+     *   @OA\Response(response=202, description="Accepted"),
+     *   @OA\Response(
+     *     response=422,
+     *     description="Validation errors",
+     *     @OA\JsonContent(
+     *          @OA\Property(property="message", type="string"),
+     *          @OA\Property(property="errors", type="array", @OA\Items(type="string"))
+     *     )
+     *   )
      * )
      */
     public function send(TransactionalEmailRequest $request): JsonResponse
