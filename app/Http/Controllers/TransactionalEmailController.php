@@ -11,6 +11,33 @@ use Illuminate\Http\Response;
 
 class TransactionalEmailController extends Controller
 {
+    /**
+     * @OA\Post(
+     *   path="/api/send-transactional-emails",
+     *   summary="Send transactional emails through the queue",
+     *   tags={"Transactional Emails"},
+     *   @OA\RequestBody(
+     *      required=true,
+     *      @OA\JsonContent(
+     *         @OA\Property(property="type", type="string", enum={"text", "html"}),
+     *         @OA\Property(
+     *            property="recipients",
+     *            type="array",
+     *            @OA\Items(type="string"),
+     *            description="Each array element must be a valid email address"
+     *         ),
+     *         @OA\Property(property="subject", type="string"),
+     *         @OA\Property(
+     *            property="content",
+     *            type="array",
+     *            @OA\Items(type="string"),
+     *            description="Each array element is separate line"
+     *         )
+     *      )
+     *   ),
+     *   @OA\Response(response=202, description="Accepted")
+     * )
+     */
     public function send(TransactionalEmailRequest $request): JsonResponse
     {
         $email = $request->get('type') === 'html' ? new HtmlEmail() : new PlainTextEmail();
