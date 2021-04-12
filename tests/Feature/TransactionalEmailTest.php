@@ -67,9 +67,11 @@ class TransactionalEmailTest extends TestCase
     public function it_sends_emails_through_external_service()
     {
         $this->mock(SendgridClient::class, function (MockInterface $mock) {
-            $mock->shouldReceive('send')
-                ->once()
-                ->andReturn(new SendgridClient\Response(202));
+            $sendgridResponse = Mockery::mock(SendgridResponse::class);
+
+            $sendgridResponse->shouldReceive('statusCode')->twice()->andReturn(202);
+
+            $mock->shouldReceive('send')->once()->andReturn($sendgridResponse);
         });
 
         $this->postJson(route('send-transactional-emails'), $this->getEmailData());
