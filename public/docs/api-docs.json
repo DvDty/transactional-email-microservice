@@ -1,0 +1,62 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Transactional Email Microservice",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/send-transactional-emails": {
+            "post": {
+                "tags": [
+                    "Transactional Emails"
+                ],
+                "summary": "Send transactional emails through the queue",
+                "operationId": "App\\Http\\Controllers\\TransactionalEmailController::send",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "text",
+                                            "html"
+                                        ]
+                                    },
+                                    "recipients": {
+                                        "description": "Each array element must be a valid email address",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "subject": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "description": "Each array element is separate line",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
