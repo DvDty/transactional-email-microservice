@@ -1,6 +1,6 @@
 # Transactional Email Microservice
 
-Simple scalable email sending microservice build with Laravel.  Emails are sent with a high degree of
+Simple scalable email sending microservice built with Laravel.  Emails are sent with a high degree of
 certainty through external services, via auto fallback mechanism. Supported email types are plain text and html.
 
 Currently, implemented services are [SendGrid](https://sendgrid.com/) & [MailJet](https://www.mailjet.com/), but including new ones is as simple as:
