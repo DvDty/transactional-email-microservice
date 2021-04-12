@@ -9,7 +9,7 @@ use Illuminate\Support\Manager;
 /**
  * @method EmailDriverContract driver(string $driver = null)
  */
-class EmailApiManager extends Manager
+class EmailManager extends Manager
 {
 
     public function getDefaultDriver(): string

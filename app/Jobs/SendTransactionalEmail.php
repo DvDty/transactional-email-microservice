@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use App\Models\OutboundEmail;
 use App\Services\Email\Email;
-use App\Services\Email\EmailApiManager;
+use App\Services\Email\EmailManager;
 use App\Services\Email\NoDriversLeftException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,9 +23,9 @@ class SendTransactionalEmail implements ShouldQueue
     /**
      * @throws NoDriversLeftException
      */
-    public function handle(EmailApiManager $emailApiManager): bool
+    public function handle(EmailManager $emailManager): bool
     {
-        foreach ($emailApiManager->getDrivers() as $driver) {
+        foreach ($emailManager->getDrivers() as $driver) {
             $outboundEmail = new OutboundEmail();
 
             $outboundEmail->success = true;
@@ -35,7 +35,7 @@ class SendTransactionalEmail implements ShouldQueue
             $outboundEmail->content = $this->email->getContent();
 
             try {
-                $emailApiManager->driver($driver)->send($this->email, $this->recipient);
+                $emailManager->driver($driver)->send($this->email, $this->recipient);
 
                 $outboundEmail->save();
 
