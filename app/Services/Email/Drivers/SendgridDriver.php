@@ -12,14 +12,8 @@ use SendGrid\Mail\Mail as SendgridEmail;
 class SendgridDriver implements EmailDriverContract
 {
 
-    public SendgridClient $sendGridClient;
-    public SendgridEmail $sendgridEmail;
-
-    public function __construct(SendgridClient $sendGridClient, SendgridEmail $sendgridEmail)
+    public function __construct(protected SendgridClient $sendGridClient, protected SendgridEmail $sendgridEmail)
     {
-        $this->sendGridClient = $sendGridClient;
-        $this->sendgridEmail = $sendgridEmail;
-
         $this->sendgridEmail->setFrom(config('mail.from.address'), config('mail.from.name'));
     }
 
